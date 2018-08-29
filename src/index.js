@@ -17,8 +17,8 @@ const store = createStore(reducer);
 firebaseApp.auth().onAuthStateChanged(user => {
   if(user) {
 
-    browserHistory.push('/app');
     const { email } = user;
+    browserHistory.push('/app');
     store.dispatch(logUser(email));
   } else {
     // browserHistory.replace('/signin');

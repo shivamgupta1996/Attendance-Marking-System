@@ -14,8 +14,8 @@ class AttendanceTable extends Component {
       snap.forEach(dataObj => {
         const {user} = dataObj.val();
           if(user === this.props.user.email){
-            const { user, clockInDate, clockInTime, clockOutDate, clockOutTime } = dataObj.val();
-            data.push({user, clockInDate, clockInTime, clockOutDate, clockOutTime}) }
+            const { user, clockInDate, clockInTime, clockOutDate, clockOutTime, hours, minutes } = dataObj.val();
+            data.push({user, clockInDate, clockInTime, clockOutDate, clockOutTime, hours, minutes}) }
       })
       this.props.postedData(data);
       })
@@ -28,8 +28,8 @@ class AttendanceTable extends Component {
         snap.forEach(dataObj => {
           const {user} = dataObj.val();
             if(user === nextProps.user.email){
-              const { user, clockInDate, clockInTime, clockOutDate, clockOutTime, hours, minutes } = dataObj.val();
-              data.push({user, clockInDate, clockInTime, clockOutDate, clockOutTime, hours, minutes }) }
+              const { user, clockInDate, clockInTime, clockOutDate, clockOutTime, address, hours, minutes } = dataObj.val();
+              data.push({user, clockInDate, clockInTime, clockOutDate, clockOutTime, address, hours, minutes}) }
         })
         this.props.postedData(data);
         })
@@ -41,25 +41,27 @@ showTableData = () => {
   const no_of_days = moment().date();
   const clockIns = this.props.data;
   for(let i= 1; i <= no_of_days; i++){
+    const date = moment().subtract(no_of_days - i, 'day');
     const current = _.find(clockIns, function(item) {
       const clkin = moment(item.clockInDate, 'MMMM Do YYYY').date();
-      const date = moment().subtract(no_of_days - i, 'day').date();
-      return clkin === date
+      return clkin === date.date()
     })
     if (current) {
+
       rows.push(
         <tr key={current.clockInDate}>
           <td>{current.clockInDate}</td>
           <td>{current.clockInTime}</td>
           <td>{current.clockOutTime}</td>
           <td>{current.hours}:{current.minutes}</td>
-          <td>Present</td>
+          <td>{current.clockInTime && current.clockOutTime ? "Present" : "Absent"}</td>
+          <td>{current.address}</td>
         </tr>
       )
     } else{
       rows.push(
         <tr key={i}>
-          <td>{i}</td>
+          <td>{date.format('MMMM Do YYYY')}</td>
           <td>-</td>
           <td>-</td>
           <td>-</td>
@@ -84,6 +86,7 @@ showTableData = () => {
               <th>Time Out</th>
               <th>Hours Worked (HH:MM)</th>
               <th>Status</th>
+              <th>Location</th>
             </tr>
           </thead>
           <tbody>

@@ -13,8 +13,8 @@ class ManagerView extends Component {
       snap.forEach(dataObj => {
         const {clockInDate} = dataObj.val();
           if(today === clockInDate){
-            const { user, clockInDate, clockInTime, clockOutDate, clockOutTime } = dataObj.val();
-            todayData.push({user, clockInDate, clockInTime, clockOutDate, clockOutTime}) }
+            const { user, clockInDate, clockInTime, clockOutDate, clockOutTime, hours, minutes } = dataObj.val();
+            todayData.push({user, clockInDate, clockInTime, clockOutDate, clockOutTime, hours, minutes}) }
       })
       this.props.postTodayData(todayData);
       })
@@ -26,9 +26,10 @@ class ManagerView extends Component {
         this.props.todayData.map(eachData => {
           return(
             <div style={{marginBottom:'25px'}}>
-              <span><strong>{eachData.user}</strong></span><br />
+              <h4><u>{eachData.user}</u></h4><br />
               <span><strong>Clock In: </strong>{eachData.clockInTime}</span><br />
               <span><strong>Clock Out: </strong>{eachData.clockOutTime}</span><br />
+              <span><strong>Hours worked: </strong>{eachData.hours}:{eachData.minutes}</span><br />
             </div>
           )
         })
@@ -41,8 +42,8 @@ class ManagerView extends Component {
   render(){
 
     return(
-      <div>
-        <h2>Today's Data</h2>
+      <div className="container">
+        <h2><u>Today's Data</u></h2>
         <div>{this.renderTodayData()}</div>
       </div>
     )

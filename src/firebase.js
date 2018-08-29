@@ -13,3 +13,4 @@ const config = {
 export const firebaseApp = firebase.initializeApp(config);
 export const hrRef = firebase.database().ref('data');
 export const storageRef = firebase.storage().ref('DP');
+export const userRef = firebase.database().ref('users');

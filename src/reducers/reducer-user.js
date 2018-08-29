@@ -9,7 +9,7 @@ export default (state = user, action) => {
     case SIGNED_IN:
       const { email } = action;
       return user = {
-        email,
+        email
       }
       return user;
     case SIGNED_OUT:

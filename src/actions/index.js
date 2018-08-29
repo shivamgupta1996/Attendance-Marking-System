@@ -2,6 +2,7 @@ export const SIGNED_IN = "signed_in";
 export const SIGNED_OUT = "signed_out";
 export const POSTED_DATA = "posted_data";
 export const TODAY_DATA = "today_data";
+
 export function logUser(email) {
 
   const action = {

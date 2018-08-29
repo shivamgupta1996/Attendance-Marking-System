@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {firebaseApp} from '../firebase';
+import {firebaseApp, userRef} from '../firebase';
 import { Link } from 'react-router';
 
 class SignUp extends Component {
@@ -9,7 +9,7 @@ class SignUp extends Component {
     this.state = {
       email : '',
       password : '',
-
+      name : '',
       error : {
         message : ''
       }
@@ -17,8 +17,14 @@ class SignUp extends Component {
   }
 signUp(){
   //console.log("credentials", this.state);
-  const {email, password} = this.state;
-  firebaseApp.auth().createUserWithEmailAndPassword(email, password).catch(error => {this.setState({error});});
+  const {email, password, name} = this.state;
+  firebaseApp.auth().createUserWithEmailAndPassword(email, password).then(user=>{
+    if(user != null){
+      console.log('useer', user.user.uid);
+      userRef.child(`${user.user.uid}`).set({name})
+    }
+
+  }).catch(error => {this.setState({error});});
 
 }
 
@@ -28,7 +34,13 @@ signUp(){
       <div className= "form-inline" style={{margin:'5%'}}>
         <h2>Sign Up</h2>
         <div className = "form-group">
-
+        <input
+          className="form-control"
+          style={{marginBottom:'5px'}}
+          type="text"
+          placeholder = " Full Name"
+          onChange = {event => this.setState({name : event.target.value})} />
+          <br />
           <input
             className="form-control"
             style={{marginBottom:'5px'}}
