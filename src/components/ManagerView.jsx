@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import moment from 'moment';
 import {hrRef} from '../firebase';
 import {postTodayData} from '../actions';
+import {Helmet} from "react-helmet";
 
 class ManagerView extends Component {
 
@@ -43,10 +44,16 @@ class ManagerView extends Component {
 
     return(
       <div className="container">
+      <Helmet>
+        <title>Admin-AMS</title>
+        <meta property="og:title" content="AMS-Admin">
+        <meta property="og:type" content="utility">
+        <meta property="og:url" content="https://markyourattendance.herokuapp.com/manager">
+        <meta property="og:image" content="https://thumb.ibb.co/g35bV9/ams.png">
+      </Helmet>
         <h2><u>Today's Data</u></h2>
         <div>{this.renderTodayData()}</div>
       </div>
-    )
   }
 }
 
