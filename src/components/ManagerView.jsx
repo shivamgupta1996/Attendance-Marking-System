@@ -44,7 +44,7 @@ class ManagerView extends Component {
 
     return(
       <div className="container">
-      <Helmet>
+      <Helmet id="two">
         <title>Admin-AMS</title>
         <meta property="og:title" content="AMS-Admin" />
         <meta property="og:type" content="utility" />

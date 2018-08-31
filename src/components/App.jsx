@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import {firebaseApp, userRef} from '../firebase';
-import { hrRef } from '../firebase';
+import {firebaseApp, userRef, hrRef} from '../firebase';
 import { browserHistory, Link } from 'react-router';
 import AttendanceTable from './AttendanceTable';
 import { signOut } from '../actions';
@@ -186,7 +185,7 @@ clockOut(){
 
     return(
       <div className="container">
-      <Helmet>
+      <Helmet id="one">
         <title>AMS-Attendance Marking System</title>
         <meta property="og:title" content="Attendance Marking System" />
         <meta property="og:type" content="utility" />
