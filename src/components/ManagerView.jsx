@@ -54,11 +54,7 @@ class ManagerView extends Component {
         <h2><u>Today's Data</u></h2>
         <div>{this.renderTodayData()}</div>
       </div>
-<<<<<<< HEAD
     )
-=======
-     )
->>>>>>> 117cc3535c38943de51a4aa5d66480cfb292f626
   }
 }
 
