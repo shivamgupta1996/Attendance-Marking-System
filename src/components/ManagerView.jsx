@@ -46,14 +46,15 @@ class ManagerView extends Component {
       <div className="container">
       <Helmet>
         <title>Admin-AMS</title>
-        <meta property="og:title" content="AMS-Admin">
-        <meta property="og:type" content="utility">
-        <meta property="og:url" content="https://markyourattendance.herokuapp.com/manager">
-        <meta property="og:image" content="https://thumb.ibb.co/g35bV9/ams.png">
+        <meta property="og:title" content="AMS-Admin" />
+        <meta property="og:type" content="utility" />
+        <meta property="og:url" content="https://markyourattendance.herokuapp.com/manager" />
+        <meta property="og:image" content="https://previews.123rf.com/images/carmendorin/carmendorin1405/carmendorin140500034/28009966-grunge-rubber-stamp-with-text-admin-vector-illustration.jpg" />
       </Helmet>
         <h2><u>Today's Data</u></h2>
         <div>{this.renderTodayData()}</div>
       </div>
+    )
   }
 }
 

@@ -18,7 +18,7 @@ firebaseApp.auth().onAuthStateChanged(user => {
   if(user) {
 
     const { email } = user;
-    browserHistory.push('/app');
+    browserHistory.push('/');
     store.dispatch(logUser(email));
   } else {
     // browserHistory.replace('/signin');
@@ -35,6 +35,7 @@ ReactDOM.render(
   <Provider store={store} >
     <Router path="/" history={browserHistory}>
       <Route path="/" component={App} />
+      <Route path="/app" component={App} />
       <Route path="/signin" component={SignIn} />
       <Route path="/signup" component={SignUp} />
       <Route path="/manager" component={ManagerView} />
