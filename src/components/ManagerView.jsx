@@ -54,6 +54,7 @@ class ManagerView extends Component {
         <h2><u>Today's Data</u></h2>
         <div>{this.renderTodayData()}</div>
       </div>
+     )
   }
 }
 
