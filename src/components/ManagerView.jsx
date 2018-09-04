@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import moment from 'moment';
 import {hrRef} from '../firebase';
 import {postTodayData} from '../actions';
-import MetaTags from 'react-meta-tags';
 
 class ManagerView extends Component {
 
@@ -44,13 +43,6 @@ class ManagerView extends Component {
 
     return(
       <div className="container">
-      <MetaTags>
-        <title>Admin-AMS</title>
-        <meta property="og:title" content="AMS-Admin" />
-        <meta property="og:type" content="utility" />
-        <meta property="og:url" content="https://markyourattendance.herokuapp.com/manager" />
-        <meta property="og:image" content="https://previews.123rf.com/images/carmendorin/carmendorin1405/carmendorin140500034/28009966-grunge-rubber-stamp-with-text-admin-vector-illustration.jpg" />
-      </MetaTags>
         <h2><u>Today's Data</u></h2>
         <div>{this.renderTodayData()}</div>
       </div>

@@ -9,7 +9,6 @@ import _ from 'lodash';
 import {Glyphicon} from 'react-bootstrap';
 import CalendarShow from './CalendarShow';
 import Geocode from "react-geocode";
-import MetaTags from 'react-meta-tags';
 
 class App extends Component {
   constructor(props){
@@ -185,14 +184,6 @@ clockOut(){
 
     return(
       <div className="container">
-      <MetaTags>
-        <title>AMS-Attendance Marking System</title>
-        <meta property="og:title" content="Attendance Marking System" />
-        <meta property="og:type" content="utility" />
-        <meta property="og:url" content="https://markyourattendance.herokuapp.com/" />
-        <meta property="og:image" content="https://thumb.ibb.co/g35bV9/ams.png" />
-        <meta property="og:description" content="Mark your attendance without any hassle." />
-      </MetaTags>
         <div className="header-box">
           <div className="heading"><h1>SumHr</h1></div>
           <span>Hello {email} !</span>
