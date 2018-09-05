@@ -10,18 +10,18 @@ import { createStore } from 'redux';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import ManagerView from './components/ManagerView';
-
+import EmployeeData from './components/EmployeeData';
 const store = createStore(reducer);
 
 
 firebaseApp.auth().onAuthStateChanged(user => {
   if(user) {
 
-    const { email } = user;
     browserHistory.push('/');
+    const { email } = user;
     store.dispatch(logUser(email));
   } else {
-    // browserHistory.replace('/signin');
+  // browserHistory.replace('/signin');
 
   }
 });
@@ -37,6 +37,7 @@ ReactDOM.render(
       <Route path="/" component={App} />
       <Route path="/app" component={App} />
       <Route path="/signin" component={SignIn} />
+      <Route path="/employeedata/:email" component={EmployeeData} />
       <Route path="/signup" component={SignUp} />
       <Route path="/manager" component={ManagerView} />
     </Router>
