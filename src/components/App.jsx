@@ -122,8 +122,9 @@ clockIn(){
     }
   })
     if(count===0){
+      if(this.state.addr!= ""){
       hrRef.push({user: email, clockInDate: inDate, clockInTime: inTime, address: this.state.addr})
-  } else {
+  }} else {
       console.log("Try again next day")
   }
 
