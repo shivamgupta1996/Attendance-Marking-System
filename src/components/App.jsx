@@ -41,7 +41,7 @@ class App extends Component {
 
   getMyLocation() {
     const location = window.navigator && window.navigator.geolocation
-    console.log(location);
+    console.log("whats this?",location);
     if (location) {
       location.getCurrentPosition((position) => {
         const { coords: { latitude, longitude } } = position;

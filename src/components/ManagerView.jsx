@@ -45,7 +45,7 @@ class ManagerView extends Component {
 
     return(
       <div className="container">
-        <Link><button onClick={()=>{browserHistory.push('/')}}>Back</button></Link>
+        <Link><button className="btn btn-default" onClick={()=>{browserHistory.push('/')}}>Back</button></Link>
         <h2><u>Today's Data</u></h2>
         <div>{this.renderTodayData()}</div>
       </div>

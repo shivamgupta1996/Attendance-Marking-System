@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import moment from 'moment';
 import _ from 'lodash';
 import { browserHistory, Link } from 'react-router';
-import {Glyphicon} from 'react-bootstrap';
+import {Glyphicon, ButtonGroup, Button} from 'react-bootstrap';
 
 var CanvasJSReact = require('./canvasjs.react');
 var CanvasJS = CanvasJSReact.CanvasJS;
@@ -11,16 +11,24 @@ var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 class EmployeeData extends Component{
 
+  state={
+    currentMonth:moment().month()+1,
+  }
+
   renderChart(){
+    let cmo = this.state.currentMonth;
     let dates=[];
     const {data} = this.props;
-    const no_of_days = moment().date();
+    const no_of_days = moment(cmo,'MM').daysInMonth();
     for(let i= 1; i <= no_of_days; i++){
-      const date = moment().subtract(no_of_days - i, 'day');
+      if(i<10){
+        i='0'+i;
+      }
+      const date = moment(`${i}${cmo}`,'DD MM');
 
        let dateFinder = _.find(data, function(item) {
-        const clkin = moment(item.clockInDate, 'MMMM Do YYYY').date();
-        return clkin === date.date()
+        const clkin = moment(item.clockInDate, 'MMMM Do YYYY');
+        return clkin.date() === date.date() && clkin.month() === date.month();
       })
         if(dateFinder){
           dates.push({label: date.format('MMM DD YY'), y:1});
@@ -32,11 +40,13 @@ class EmployeeData extends Component{
     }
 
   const options = {
+    animationEnabled: true,
+
     title: {
-      text: "Attendance Chart"
+      text: "Monthwise Attendance Chart"
     },
     axisX: {
-				title: "Dates(From starting of the month to the present date)",
+				title: "Date",
 				crosshair: {
 					enabled: true,
 					snapToDataPoint: true
@@ -60,17 +70,41 @@ class EmployeeData extends Component{
     ]
   }
 
-
   return(<div><CanvasJSChart options = {options} /></div>);
+  }
+
+
+  setMonth(k){
+    this.setState({currentMonth: k})
+  }
+
+  renderButtons(){
+    let buttons=[];
+    for(let j=1; j<=12; j++){
+      buttons.push(<Button key={j} className="btn btn-default" onClick={()=>this.setMonth(j)}>{moment(j,'MM').format('MMMM')}</Button>)
+    }
+    return buttons;
   }
 
   render(){
 		return (
-    <div className="container">
-      <Link><button className="btn btn-default" onClick={()=>{browserHistory.push('/')}}>Back</button></Link>
-  		<div>
-      {this.renderChart()}
-  		</div>
+    <div className="chart-wrapper">
+      <div className="container">
+        <Link><button className="btn btn-default" onClick={()=>{browserHistory.push('/')}}>Back</button></Link>
+      </div>
+      <div>
+        <h3><center>Select a month:</center></h3>
+        <div className="button-container">
+          <ButtonGroup>
+          {
+            this.renderButtons()
+          }
+          </ButtonGroup>
+        </div>
+      <div className="chart-container">
+        {this.renderChart()}
+      </div>
+    	</div>
     </div>
 		);
 
