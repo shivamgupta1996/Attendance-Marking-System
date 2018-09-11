@@ -18,6 +18,7 @@
     "react-scripts": "^1.1.4",
     "react-sparklines": "^1.7.0",
     "react-timestamp": "^4.4.0",
+    "react-transition-group": "^2.4.0",
     "redux": "^4.0.0",
     "redux-promise": "^0.6.0"
   },

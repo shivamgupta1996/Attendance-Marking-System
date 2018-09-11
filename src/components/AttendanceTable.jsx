@@ -66,6 +66,7 @@ showTableData = () => {
           <td>-</td>
           <td>-</td>
           <td>Absent</td>
+          <td>-</td>
         </tr>
       )
 

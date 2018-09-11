@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import moment from 'moment';
 import {hrRef} from '../firebase';
 import {postTodayData} from '../actions';
+import { browserHistory, Link } from 'react-router';
+import {Glyphicon} from 'react-bootstrap';
 
 class ManagerView extends Component {
 
@@ -43,6 +45,7 @@ class ManagerView extends Component {
 
     return(
       <div className="container">
+        <Link><button onClick={()=>{browserHistory.push('/')}}>Back</button></Link>
         <h2><u>Today's Data</u></h2>
         <div>{this.renderTodayData()}</div>
       </div>

@@ -9,6 +9,7 @@ import _ from 'lodash';
 import {Glyphicon} from 'react-bootstrap';
 import CalendarShow from './CalendarShow';
 import Geocode from "react-geocode";
+import Transition from 'react-transition-group/Transition';
 
 class App extends Component {
   constructor(props){
@@ -22,7 +23,7 @@ class App extends Component {
       latitude: '',
       longitude: '',
       clockInStatus: "no",
-      addr:''
+      addr:'',
     }
     this.getMyLocation = this.getMyLocation.bind(this)
   }
@@ -40,7 +41,7 @@ class App extends Component {
 
   getMyLocation() {
     const location = window.navigator && window.navigator.geolocation
-
+    console.log(location);
     if (location) {
       location.getCurrentPosition((position) => {
         const { coords: { latitude, longitude } } = position;
@@ -103,9 +104,9 @@ pushSignIn(){
 
 renderAuthButton(){
     if(this.props.user.email!=null){
-      return(<Glyphicon className="glyphi" onClick={()=>this.signout()} title="Sign Out" glyph="off" />);
+      return(<a><Glyphicon className="glyphi" onClick={()=>this.signout()} title="Sign Out" glyph="off" /></a>);
     } else {
-      return(<button className="btn btn-warning" onClick={()=>this.pushSignIn()}>Sign in</button>);
+      return(<a><button className="btn btn-warning" onClick={()=>this.pushSignIn()}>Sign in</button></a>);
     }
 }
 
@@ -161,7 +162,7 @@ clockOut(){
     mins='0'+mins;
   }
 
-  this.setState({clockOutTime:outTime, clockOutDate:outDate, clockInStatus: "null"});
+  this.setState({clockOutTime:outTime, clockOutDate:outDate, clockInStatus: "no"});
   hrRef.on('value',snap=>{
     snap.forEach(data => {
       const {clockInDate, user} = data.val();
@@ -187,40 +188,49 @@ clockOut(){
     // console.log(firebaseApp.auth().O)
 
     return(
-      <div className="container">
-        <div className="header-box">
-          <div className="heading"><h1>SumHr</h1></div>
-          <span>Hello {email} !</span>
-          <div>
-            {this.renderAuthButton()}
-          </div>
-          <div>
-          {
-            this.renderManagerView()
-          }
-          </div>
+      <div className="wrapper">
+        <div className="container-fluid main-heading">
+          <h1><center>Attendance Marking System</center></h1>
         </div>
-        <hr />
-
-        <div className="clk-box">
-          <div style={{marginBottom:'15px'}}>
-            {
-              this.renderButton()
-            }
-          </div>
-        </div>
+          <div className="container">
+            <div className="header-box">
+              <span>Hello {email} !</span>
+              <div>
+                {this.renderAuthButton()}
+              </div>
+              <div>
+              {
+                this.renderManagerView()
+              }
+              </div>
+              <div style={{marginTop:'10px'}}>
+              <Link to={`employeedata/${email}`}><button className="btn btn-primary">Your Data</button></Link>
+              </div>
+            </div>
             <hr />
 
-          <div className="table-n-cal">
-            <div className="calendar">
-              <CalendarShow />
+            <div className="clk-box">
+              <div style={{marginBottom:'15px'}}>
+                {
+                  this.renderButton()
+                }
+              </div>
             </div>
-            <div className="at-table">
-              <AttendanceTable />
-            </div>
+                <hr />
+
+              <div className="table-n-cal">
+                <div className="calendar">
+                  <CalendarShow />
+                </div>
+
+                <div className="at-table">
+                  <AttendanceTable />
+                </div>
+              </div>
           </div>
-          <div>
-            <Link to={`employeedata/${email}`}>Your Data</Link>
+
+          <div className="container-fluid foot">By: Shivam Gupta <br />
+            <a href="https://github.com/shivamgupta1996" target="_BLANK"><img src={require('../GitHub-Logos/GitHub_Logo.png')} className="img-responsive gitlogo" /></a>
           </div>
       </div>
     )
