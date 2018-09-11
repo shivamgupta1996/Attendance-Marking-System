@@ -14,8 +14,8 @@ class AttendanceTable extends Component {
       snap.forEach(dataObj => {
         const {user} = dataObj.val();
           if(user === this.props.user.email){
-            const { user, clockInDate, clockInTime, clockOutDate, clockOutTime, hours, minutes } = dataObj.val();
-            data.push({user, clockInDate, clockInTime, clockOutDate, clockOutTime, hours, minutes}) }
+            const { user, clockInDate, clockInTime, clockOutDate, clockOutTime, hours, minutes, address } = dataObj.val();
+            data.push({user, clockInDate, clockInTime, clockOutDate, clockOutTime, hours, minutes, address}) }
       })
       this.props.postedData(data);
       })

@@ -43,6 +43,10 @@ text-align: -moz-center;
   margin-left: 10px;
 }
 
+.manager-wrapper{
+  margin-top: 5%;
+}
+
 .chart-wrapper{
   margin-top: 20px;
 }

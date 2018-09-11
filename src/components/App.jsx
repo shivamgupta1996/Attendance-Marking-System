@@ -41,7 +41,6 @@ class App extends Component {
 
   getMyLocation() {
     const location = window.navigator && window.navigator.geolocation
-    console.log("whats this?",location);
     if (location) {
       location.getCurrentPosition((position) => {
         const { coords: { latitude, longitude } } = position;
@@ -188,7 +187,7 @@ clockOut(){
     // console.log(firebaseApp.auth().O)
 
     return(
-      <div className="wrapper">
+      <div>
         <div className="container-fluid main-heading">
           <h1><center>Attendance Marking System</center></h1>
         </div>
@@ -198,6 +197,7 @@ clockOut(){
               <div>
                 {this.renderAuthButton()}
               </div>
+
               <div>
               {
                 this.renderManagerView()

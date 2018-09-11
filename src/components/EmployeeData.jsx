@@ -90,7 +90,7 @@ class EmployeeData extends Component{
 		return (
     <div className="chart-wrapper">
       <div className="container">
-        <Link><button className="btn btn-default" onClick={()=>{browserHistory.push('/')}}>Back</button></Link>
+        <Link><button className="btn btn-default" onClick={()=>{browserHistory.push('/')}}><Glyphicon title="back" glyph="menu-left" />Back</button></Link>
       </div>
       <div>
         <h3><center>Select a month:</center></h3>
