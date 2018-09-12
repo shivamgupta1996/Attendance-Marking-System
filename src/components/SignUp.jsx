@@ -27,8 +27,17 @@ signUp(){
       userRef.child(`${user.user.uid}`).set({name})
     }
 
-  }).catch(error => {this.setState({error});});
-
+  }).catch(error => {
+    this.setState({error});
+    ReactDOM.render(
+      <div id="rat"><button
+        className = "btn btn-primary"
+        type = "button"
+        style={{marginBottom:'5px'}}
+        onClick = {() => this.signUp()}>
+        Sign Up
+      </button></div>, document.getElementById('rat'))
+    });
 }
 
   render(){
