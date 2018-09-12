@@ -27,11 +27,13 @@
 }
 
 .root-signin{
-text-align: -webkit-center;
-text-align: -moz-center;
+  text-align: -webkit-center;
+  text-align: -moz-center;
 }
 
-
+#rat img{
+  height:90px;
+}
 
 .signindiv{
   height: 25%;
@@ -57,6 +59,12 @@ text-align: -moz-center;
 
 .chart-container{
   margin-top: 5%;
+}
+
+.month-container{
+  text-align: center;
+    margin-top: 2%;
+    border: aqua 2px solid;
 }
 
 .foot{

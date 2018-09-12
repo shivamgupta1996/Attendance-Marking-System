@@ -11,6 +11,8 @@ import CalendarShow from './CalendarShow';
 import Geocode from "react-geocode";
 import Transition from 'react-transition-group/Transition';
 
+Geocode.setApiKey("AIzaSyC7HanxasWGhdGzovx5I0clF2S4gDU_VK0");
+
 class App extends Component {
   constructor(props){
     super(props);
@@ -110,6 +112,7 @@ renderAuthButton(){
 }
 
 clockIn(){
+
   const inDate = moment().format('MMMM Do YYYY');
   const inTime = moment().format('h:mm:ss a');
   const {email} = this.props.user;

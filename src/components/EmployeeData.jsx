@@ -9,10 +9,26 @@ var CanvasJSReact = require('./canvasjs.react');
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
+
 class EmployeeData extends Component{
 
   state={
     currentMonth:moment().month()+1,
+  }
+
+  renderMonthData(){
+    let monthData=[];
+    let currmo = this.state.currentMonth;
+    this.props.data.map(oneData=>{
+        if(moment(oneData.clockOutDate,'MMMM Do YYYY').month()+1 === currmo){
+          monthData.push(oneData.clockOutDate);
+        }
+
+    })
+
+    return(
+      <div><strong>{moment(currmo,'MM').format('MMMM')}</strong>: {monthData.length} days present</div>
+    )
   }
 
   renderChart(){
@@ -27,7 +43,7 @@ class EmployeeData extends Component{
       const date = moment(`${i}${cmo}`,'DD MM');
 
        let dateFinder = _.find(data, function(item) {
-        const clkin = moment(item.clockInDate, 'MMMM Do YYYY');
+        const clkin = moment(item.clockOutDate, 'MMMM Do YYYY');
         return clkin.date() === date.date() && clkin.month() === date.month();
       })
         if(dateFinder){
@@ -45,8 +61,12 @@ class EmployeeData extends Component{
     title: {
       text: "Monthwise Attendance Chart"
     },
+    subtitles: [{
+				text: "Present: 1    Absent: 0"
+			}],
     axisX: {
 				title: "Date",
+         interval:1,
 				crosshair: {
 					enabled: true,
 					snapToDataPoint: true
@@ -55,6 +75,7 @@ class EmployeeData extends Component{
 
       axisY: {
   				title: "Present(1)/Absent(0)",
+           interval:1,
   				crosshair: {
   					enabled: true,
   					snapToDataPoint: true
@@ -78,6 +99,8 @@ class EmployeeData extends Component{
     this.setState({currentMonth: k})
   }
 
+
+  //Month button group
   renderButtons(){
     let buttons=[];
     for(let j=1; j<=12; j++){
@@ -101,6 +124,7 @@ class EmployeeData extends Component{
           }
           </ButtonGroup>
         </div>
+        <div className="month-container">{this.renderMonthData()}</div>
       <div className="chart-container">
         {this.renderChart()}
       </div>

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { firebaseApp } from '../firebase';
 import { Link } from 'react-router';
+import ReactDOM from 'react-dom';
+import logo from './Double Ring-4s-200px.svg';
 
 class SignIn extends Component {
 
@@ -15,9 +17,12 @@ class SignIn extends Component {
       }
     }
   }
+
+
 signIn(){
   //console.log("credentials", this.state);
   const {email, password} = this.state;
+  ReactDOM.render(<img src={logo} />, document.getElementById('rat'))
   firebaseApp.auth().signInWithEmailAndPassword(email, password).catch(
     error => {
     this.setState({error});
@@ -47,20 +52,20 @@ signIn(){
               placeholder = "Password"
               onChange = {event => this.setState({password : event.target.value})} />
               <br />
-              <button
+              <div id="rat"><button
                 className = "btn btn-primary"
                 type = "button"
                 style={{marginBottom:'5px'}}
                 onClick = {() => this.signIn()}>
                 Sign In
-                </button>
+                </button></div>
                 <div>{this.state.error.message}</div>
         </div>
         <br />
         <div>
           Do not have an ID? <Link to="/signup" >Sign Up </Link>
         </div>
-
+        <div><center></center></div>
 
       </div>
     </div>

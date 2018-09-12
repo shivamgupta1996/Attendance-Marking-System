@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {firebaseApp, userRef} from '../firebase';
 import { Link } from 'react-router';
+import ReactDOM from 'react-dom';
+import logo from './Double Ring-4s-200px.svg';
 
 class SignUp extends Component {
   constructor(props){
@@ -18,6 +20,7 @@ class SignUp extends Component {
 signUp(){
   //console.log("credentials", this.state);
   const {email, password, name} = this.state;
+  ReactDOM.render(<img src={logo} />, document.getElementById('rat'))
   firebaseApp.auth().createUserWithEmailAndPassword(email, password).then(user=>{
     if(user != null){
       console.log('useer', user.user.uid);
@@ -55,20 +58,20 @@ signUp(){
               placeholder = "Password"
               onChange = {event => this.setState({password : event.target.value})} />
               <br />
-              <button
+              <div id="rat"><button
                 className = "btn btn-primary"
                 type = "button"
                 style={{marginBottom:'5px'}}
                 onClick = {() => this.signUp()}>
                 Sign Up
-              </button>
+              </button></div>
                 <div>{this.state.error.message}</div>
         </div>
         <br />
         <div>
           Already have an ID? <Link to="/signin" >Sign In </Link>
         </div>
-
+        <div><center></center></div>
       </div>
     </div>
     );
