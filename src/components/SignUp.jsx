@@ -40,6 +40,13 @@ signUp(){
     });
 }
 
+showErrorMessage(){
+if(this.state.error.message){
+return(<div className="errorBox">{this.state.error.message}</div>)
+} else {
+  return <div></div>
+}
+}
   render(){
     return(
     <div className="root-signin">
@@ -74,7 +81,7 @@ signUp(){
                 onClick = {() => this.signUp()}>
                 Sign Up
               </button></div>
-                <div>{this.state.error.message}</div>
+                <div>{this.showErrorMessage()}</div>
         </div>
         <br />
         <div>

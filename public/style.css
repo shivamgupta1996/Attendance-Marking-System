@@ -79,3 +79,10 @@
   height:20px;
   width:50px;
 }
+
+.errorBox{
+  border: 1px solid red;
+  color: red;
+  border-radius: 20px;
+  text-align: center;
+}

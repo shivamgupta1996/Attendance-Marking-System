@@ -34,9 +34,16 @@ signIn(){
         onClick = {() => this.signIn()}>
         Sign In
       </button></div>, document.getElementById('rat'))
-    
+
   });
 
+}
+showErrorMessage(){
+if(this.state.error.message){
+return(<div className="errorBox">{this.state.error.message}</div>)
+} else {
+  return <div></div>
+}
 }
 
   render(){
@@ -68,14 +75,12 @@ signIn(){
                 onClick = {() => this.signIn()}>
                 Sign In
                 </button></div>
-                <div>{this.state.error.message}</div>
+                <div>{this.showErrorMessage()}</div>
         </div>
         <br />
         <div>
           Do not have an ID? <Link to="/signup" >Sign Up </Link>
         </div>
-        <div><center></center></div>
-
       </div>
     </div>
     );
