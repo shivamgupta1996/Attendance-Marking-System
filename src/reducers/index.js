@@ -6,5 +6,5 @@ import todayData from './reducer-today-data';
 export default combineReducers({
 user,
 data,
-todayData
+todayData,
 })

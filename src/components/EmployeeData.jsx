@@ -4,11 +4,11 @@ import moment from 'moment';
 import _ from 'lodash';
 import { browserHistory, Link } from 'react-router';
 import {Glyphicon, ButtonGroup, Button} from 'react-bootstrap';
+import {Table} from 'react-bootstrap';
 
 var CanvasJSReact = require('./canvasjs.react');
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
-
 
 class EmployeeData extends Component{
 
@@ -31,9 +31,9 @@ class EmployeeData extends Component{
     )
   }
 
-  renderChart(){
+  renderWholeData(){
     let cmo = this.state.currentMonth;
-    let dates=[];
+    let wholeData=[];
     const {data} = this.props;
     const no_of_days = moment(cmo,'MM').daysInMonth();
     for(let i= 1; i <= no_of_days; i++){
@@ -46,11 +46,80 @@ class EmployeeData extends Component{
         const clkin = moment(item.clockOutDate, 'MMMM Do YYYY');
         return clkin.date() === date.date() && clkin.month() === date.month();
       })
+
+        if(dateFinder){
+
+          wholeData.push(
+            <tr key={dateFinder.clockInDate}>
+              <td>{dateFinder.clockInDate}</td>
+              <td>{dateFinder.clockInTime}</td>
+              <td>{dateFinder.clockOutTime}</td>
+              <td>{dateFinder.hours}:{dateFinder.minutes}</td>
+              <td>{dateFinder.clockInTime && dateFinder.clockOutTime ? "Present" : "Absent"}</td>
+              <td>{dateFinder.address}</td>
+            </tr>
+          )
+        }
+        else{
+
+          wholeData.push(
+            <tr>
+              <td>{date.format('MMMM Do YYYY')}</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+          )
+        }
+
+    }
+    return wholeData;
+  }
+
+  renderChart(){
+    let cmo = this.state.currentMonth;
+    let dates=[];
+    let wholeData=[];
+    const {data} = this.props;
+    const no_of_days = moment(cmo,'MM').daysInMonth();
+    for(let i= 1; i <= no_of_days; i++){
+      if(i<10){
+        i='0'+i;
+      }
+      const date = moment(`${i}${cmo}`,'DD MM');
+
+       let dateFinder = _.find(data, function(item) {
+        const clkin = moment(item.clockOutDate, 'MMMM Do YYYY');
+        return clkin.date() === date.date() && clkin.month() === date.month();
+      })
+
         if(dateFinder){
           dates.push({label: date.format('MMM DD YY'), y:1});
+          wholeData.push(
+            <tr key={dateFinder.clockInDate}>
+              <td>{dateFinder.clockInDate}</td>
+              <td>{dateFinder.clockInTime}</td>
+              <td>{dateFinder.clockOutTime}</td>
+              <td>{dateFinder.hours}:{dateFinder.minutes}</td>
+              <td>{dateFinder.clockInTime && dateFinder.clockOutTime ? "Present" : "Absent"}</td>
+              <td>{dateFinder.address}</td>
+            </tr>
+          )
         }
         else{
           dates.push({label: date.format('MMM DD YY'), y:0});
+          wholeData.push(
+            <tr>
+              <td>{date.format('MMMM Do YYYY')}</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+          )
         }
 
     }
@@ -91,7 +160,11 @@ class EmployeeData extends Component{
     ]
   }
 
-  return(<div><CanvasJSChart options = {options} /></div>);
+  return(
+    <div><CanvasJSChart options = {options} />
+
+
+    </div>);
   }
 
 
@@ -128,11 +201,27 @@ class EmployeeData extends Component{
       <div className="chart-container">
         {this.renderChart()}
       </div>
+
+      <div>
+        <Table responsive hover bordered striped condensed>
+        <thead>
+        <tr>
+        <th>Date</th>
+        <th>Time In</th>
+        <th>Time Out</th>
+        <th>Hours Worked (HH:MM)</th>
+        <th>Status</th>
+        <th>Location</th>
+        </tr>
+        </thead>
+        <tbody>
+          {this.renderWholeData()}
+        </tbody>
+        </Table>
+        </div>
     	</div>
     </div>
 		);
-
-
   }
 }
 
@@ -140,7 +229,7 @@ function mapStateToProps(state){
   const {user, data} = state;
   return {
     user,
-    data
+    data,
   }
 }
 
