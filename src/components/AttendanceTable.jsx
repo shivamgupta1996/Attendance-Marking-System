@@ -42,9 +42,11 @@ showTableData = () => {
   const clockIns = this.props.data;
   for(let i= 1; i <= no_of_days; i++){
     const date = moment().subtract(no_of_days - i, 'day');
+    const month = date.month();
     const current = _.find(clockIns, function(item) {
       const clkin = moment(item.clockInDate, 'MMMM Do YYYY').date();
-      return clkin === date.date()
+      const clkinMonth = moment(item.clockInDate, 'MMMM Do YYYY').month();
+      return clkin === date.date() && clkinMonth === month
     })
     if (current) {
 

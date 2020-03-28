@@ -22,7 +22,7 @@ export function signOut() {
 
 export function postedData(data){
 
-  const action ={
+  const action = {
     type : POSTED_DATA,
     data
   }

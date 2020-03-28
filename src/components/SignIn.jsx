@@ -19,7 +19,7 @@ class SignIn extends Component {
   }
 
 
-signIn(){
+signIn = () => {
   //console.log("credentials", this.state);
   const {email, password} = this.state;
   ReactDOM.render(<img src={logo} />, document.getElementById('rat'))
@@ -38,15 +38,17 @@ signIn(){
   });
 
 }
-showErrorMessage(){
-if(this.state.error.message){
-return(<div className="errorBox">{this.state.error.message}</div>)
-} else {
-  return <div></div>
-}
+
+showErrorMessage = () => {
+  if(this.state.error.message){
+    return(<div className="errorBox">{this.state.error.message}</div>)
+  } else {
+    return <div></div>
+  }
 }
 
   render(){
+    
     return(
     <div className="root-signin">
       <div className= "form-inline" style={{margin:'5%'}}>

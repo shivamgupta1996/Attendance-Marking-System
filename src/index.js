@@ -27,10 +27,6 @@ firebaseApp.auth().onAuthStateChanged(user => {
 });
 
 
-
-
-
-
 ReactDOM.render(
   <Provider store={store} >
     <Router path="/" history={browserHistory}>
