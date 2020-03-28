@@ -8,8 +8,6 @@ import { signOut } from '../actions';
 import _ from 'lodash';
 import {Glyphicon} from 'react-bootstrap';
 import CalendarShow from './CalendarShow';
-import Transition from 'react-transition-group/Transition';
-import geocoding from 'reverse-geocoding';
 
 class App extends Component {
   constructor(props){
@@ -29,13 +27,6 @@ class App extends Component {
 
   componentDidMount() {
     this.getMyLocation()
-    let name;
-    const uid = firebaseApp.auth().O;
-    userRef.on('value', snap =>{
-      snap.forEach(vala => {
-        name = vala.key;
-      })
-    })
   }
 
   getLocationFromLatLng = (latitude, longitude) => {
@@ -49,7 +40,7 @@ class App extends Component {
       })
     })
   }
-  
+
   getMyLocation = () => {
     const location = window.navigator && window.navigator.geolocation
     if (location) {

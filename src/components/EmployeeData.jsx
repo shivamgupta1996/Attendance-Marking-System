@@ -50,7 +50,7 @@ class EmployeeData extends Component{
         if(dateFinder){
 
           wholeData.push(
-            <tr key={dateFinder.clockInDate}>
+            <tr key={i}>
               <td>{dateFinder.clockInDate}</td>
               <td>{dateFinder.clockInTime}</td>
               <td>{dateFinder.clockOutTime}</td>
@@ -63,7 +63,7 @@ class EmployeeData extends Component{
         else{
 
           wholeData.push(
-            <tr>
+            <tr key={i}>
               <td>{date.format('MMMM Do YYYY')}</td>
               <td>-</td>
               <td>-</td>
@@ -98,7 +98,7 @@ class EmployeeData extends Component{
         if(dateFinder){
           dates.push({label: date.format('MMM DD YY'), y:1});
           wholeData.push(
-            <tr key={dateFinder.clockInDate}>
+            <tr key={i}>
               <td>{dateFinder.clockInDate}</td>
               <td>{dateFinder.clockInTime}</td>
               <td>{dateFinder.clockOutTime}</td>
@@ -111,7 +111,7 @@ class EmployeeData extends Component{
         else{
           dates.push({label: date.format('MMM DD YY'), y:0});
           wholeData.push(
-            <tr>
+            <tr key={i}>
               <td>{date.format('MMMM Do YYYY')}</td>
               <td>-</td>
               <td>-</td>
