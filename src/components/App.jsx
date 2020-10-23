@@ -63,28 +63,34 @@ class App extends Component {
   }
 
   renderButton(){
-    const {clockInStatus} = this.state;
+    const { clockInStatus } = this.state,
+          inDate = moment().format('MMMM Do YYYY'),
+          isClockedInToday = this.props.data.filter(d => (inDate === d.clockInDate && !d.clockOutDate)).length || 0
+
     if(this.props.user.email == null){
       return(<div>Please Login to use this service</div>);
     } 
     else if(clockInStatus ==="null"){
       return (<div></div>)
     } 
-    else if(clockInStatus === "no"){
-      return(<button
-        className="btn btn-primary"
-        type="button"
-        onClick= {()=> this.clockIn()}
-        >ClockIn
-            </button> )
+    else if(clockInStatus === "no" && !isClockedInToday){
+      return(
+        <button
+          className="btn btn-primary"
+          type="button"
+          onClick= {()=> this.clockIn()}
+          >ClockIn
+        </button>
+      )
     } else {
-
-      return(<button
-        className="btn btn-secondary"
-        type="button"
-        onClick= {()=> this.clockOut()}
-      >ClockOut
-      </button> )
+      return(
+        <button
+          className="btn btn-secondary"
+          type="button"
+          onClick= {()=> this.clockOut()}
+        >ClockOut
+        </button>
+      )
     }
   }
 
