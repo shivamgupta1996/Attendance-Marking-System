@@ -1,12 +1,5 @@
-import firebase_devKeys from "./firebase_dev"
-import firebase_prodkeys from "./firebase_prod"
-
-let firebase_config
-
 if (process.env.NODE_ENV === "production") {
-    firebase_config = firebase_prodkeys
+    module.exports = require("./firebase_prod")
 } else {
-    firebase_config = firebase_devKeys
+    module.exports = require("./firebase_dev")
 }
-
-export default firebase_config
