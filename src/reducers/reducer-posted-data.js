@@ -1,4 +1,4 @@
-import {POSTED_DATA, SIGNED_OUT} from '../actions';
+import { POSTED_DATA } from '../actions';
 export default (state = [], action) => {
 
   switch(action.type){

@@ -1,10 +1,8 @@
 import React, {Component } from 'react';
 import InfiniteCalendar, {
   Calendar,
-  defaultMultipleDateInterpolation,
   withMultipleDates,
 } from 'react-infinite-calendar';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import 'react-infinite-calendar/styles.css';
 import _ from 'lodash';
 import {connect} from 'react-redux';
@@ -24,13 +22,13 @@ constructor(props){
   render(){
     let filterData = _.filter(this.props.data, {user: this.props.user.email});
     let filterDate =[];
-    filterData.map(d => {
+    filterData.forEach(d => {
       filterDate.push(new Date(moment(d.clockInDate, "MMM Do YYYY")))
     })
 
 
 
-const MultipleDateCalendar = withMultipleDates(InfiniteCalendar);
+// const MultipleDateCalendar = withMultipleDates(InfiniteCalendar);
 
     return(
       <div>

@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import {firebaseApp, userRef, hrRef} from '../firebase';
+import {firebaseApp, hrRef} from '../firebase';
 import { browserHistory, Link } from 'react-router';
 import AttendanceTable from './AttendanceTable';
 import { signOut } from '../actions';
 import _ from 'lodash';
 import {Glyphicon} from 'react-bootstrap';
 import CalendarShow from './CalendarShow';
-
+import gitHubLogo from '../GitHub-Logos/GitHub_Logo.png';
 class App extends Component {
   constructor(props){
     super(props);
@@ -99,10 +99,20 @@ class App extends Component {
   }
 
   renderAuthButton(){
-      if(this.props.user.email!=null){
-        return(<a><Glyphicon className="glyphi" onClick={()=>this.signout()} title="Sign Out" glyph="off" /></a>);
+      if (this.props.user.email!=null) {
+        return(
+          <a>
+            <Glyphicon className="glyphi" onClick={()=>this.signout()} title="Sign Out" glyph="off" />
+          </a>
+        );
       } else {
-        return(<a><button className="btn btn-warning" onClick={()=>this.pushSignIn()}>Sign in</button></a>);
+        return (
+          <a>
+            <button className="btn btn-warning" onClick={()=>this.pushSignIn()}>
+              Sign in
+            </button>
+          </a>
+        );
       }
   }
 
@@ -111,7 +121,7 @@ class App extends Component {
     const inTime = moment().format('h:mm:ss a');
     const {email} = this.props.user;
     let count=0;
-    this.props.data.map(d=>{
+    this.props.data.forEach(d=>{
       if(inDate === d.clockInDate){
         count+=1;
       }
@@ -206,7 +216,7 @@ class App extends Component {
               }
               </div>
               <div style={{marginTop:'10px'}}>
-              <Link to={`employeedata/${email}`}><button className="btn btn-primary">Your Data</button></Link>
+              <Link to={`employeedata/${email}`}><button className="btn btn-primary">Detailed attendance view</button></Link>
               </div>
             </div>
             <hr />
@@ -232,7 +242,13 @@ class App extends Component {
           </div>
 
           <div className="container-fluid foot">By: Shivam Gupta <br />
-            <a href="https://github.com/shivamgupta1996" target="_BLANK"><img src={require('../GitHub-Logos/GitHub_Logo.png')} className="img-responsive gitlogo" /></a>
+            <a href="https://github.com/shivamgupta1996" rel="noopener noreferrer" target="_BLANK">
+              <img 
+                src={gitHubLogo}
+                className="img-responsive gitlogo"
+                alt="Github_logo"
+              />
+            </a>
           </div>
       </div>
     )

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { firebaseApp } from '../firebase';
 import { Link } from 'react-router';
-import ReactDOM from 'react-dom';
 import logo from './Double Ring-4s-200px.svg';
 
 class SignIn extends Component {
@@ -14,38 +13,29 @@ class SignIn extends Component {
       password : '',
       error : {
         message : ''
-      }
+      },
+      isLoading: false
     }
   }
 
 
-signIn = () => {
-  //console.log("credentials", this.state);
-  const {email, password} = this.state;
-  ReactDOM.render(<img src={logo} />, document.getElementById('rat'))
-  firebaseApp.auth().signInWithEmailAndPassword(email, password).catch((error)=>{
-    this.setState({error});
-
-    ReactDOM.render(
-      <div id="rat"><button
-        className = "btn btn-primary"
-        type = "button"
-        style={{marginBottom:'5px'}}
-        onClick = {() => this.signIn()}>
-        Sign In
-      </button></div>, document.getElementById('rat'))
-
-  });
-
-}
-
-showErrorMessage = () => {
-  if(this.state.error.message){
-    return(<div className="errorBox">{this.state.error.message}</div>)
-  } else {
-    return <div></div>
+  signIn = () => {
+    const {email, password} = this.state;
+    this.setState({
+      isLoading: true
+    });
+    firebaseApp.auth().signInWithEmailAndPassword(email, password).catch((error)=>{
+      this.setState({error, isLoading: false });
+    });
   }
-}
+
+  showErrorMessage = () => {
+    if(this.state.error.message){
+      return(<div className="errorBox">{this.state.error.message}</div>)
+    } else {
+      return <div></div>
+    }
+  }
 
   render(){
     
@@ -70,14 +60,22 @@ showErrorMessage = () => {
               placeholder = "Password"
               onChange = {event => this.setState({password : event.target.value})} />
               <br />
-              <div id="rat"><button
-                className = "btn btn-primary"
-                type = "button"
-                style={{marginBottom:'5px'}}
-                onClick = {() => this.signIn()}>
-                Sign In
-                </button></div>
-                <div>{this.showErrorMessage()}</div>
+              <div id="rat">
+              {
+                this.state.isLoading ?
+                <img src={logo} alt="loader" /> 
+                :
+                <button
+                  className = "btn btn-primary"
+                  type = "button"
+                  style={{marginBottom:'5px'}}
+                  onClick = {this.signIn}
+                >
+                  Sign In
+                </button>
+              }
+              </div>
+              <div>{this.showErrorMessage()}</div>
         </div>
         <br />
         <div>

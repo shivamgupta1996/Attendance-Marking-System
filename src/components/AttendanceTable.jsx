@@ -60,7 +60,7 @@ showTableData = () => {
           <td>{current.address}</td>
         </tr>
       )
-    } else{
+    } else {
       rows.push(
         <tr key={i}>
           <td>{date.format('MMMM Do YYYY')}</td>
@@ -105,8 +105,7 @@ showTableData = () => {
     }
 
 function mapStateToProps(state){
-  const {user} = state;
-  const {data} = state;
+  const { user, data } = state;
 
   return {
     user,

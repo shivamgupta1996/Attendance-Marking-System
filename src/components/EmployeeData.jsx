@@ -1,13 +1,11 @@
-import React,{Component} from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import moment from 'moment';
 import _ from 'lodash';
 import { browserHistory, Link } from 'react-router';
-import {Glyphicon, ButtonGroup, Button} from 'react-bootstrap';
-import {Table} from 'react-bootstrap';
+import { Glyphicon, ButtonGroup, Button, Table } from 'react-bootstrap';
 
 var CanvasJSReact = require('./canvasjs.react');
-var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 class EmployeeData extends Component{
@@ -19,7 +17,7 @@ class EmployeeData extends Component{
   renderMonthData(){
     let monthData=[];
     let currmo = this.state.currentMonth;
-    this.props.data.map(oneData=>{
+    this.props.data.forEach(oneData=>{
         if(moment(oneData.clockOutDate,'MMMM Do YYYY').month()+1 === currmo){
           monthData.push(oneData.clockOutDate);
         }

@@ -24,7 +24,7 @@ class ManagerView extends Component {
 
   showTableData(){
     let today =[];
-    this.props.todayData.map(eachData => {
+    this.props.todayData.forEach(eachData => {
 
       today.push(
         <tr>

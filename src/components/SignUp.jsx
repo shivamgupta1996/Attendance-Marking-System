@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {firebaseApp, userRef} from '../firebase';
 import { Link } from 'react-router';
-import ReactDOM from 'react-dom';
 import logo from './Double Ring-4s-200px.svg';
 
 class SignUp extends Component {
@@ -14,39 +13,41 @@ class SignUp extends Component {
       name : '',
       error : {
         message : ''
-      }
+      },
+      isLoading: false
     }
   }
-signUp(){
-  //console.log("credentials", this.state);
-  const {email, password, name} = this.state;
-  ReactDOM.render(<img src={logo} />, document.getElementById('rat'))
-  firebaseApp.auth().createUserWithEmailAndPassword(email, password).then(user=>{
-    if(user != null){
-      console.log('useer', user.user.uid);
-      userRef.child(`${user.user.uid}`).set({name})
-    }
 
-  }).catch(error => {
-    this.setState({error});
-    ReactDOM.render(
-      <div id="rat"><button
-        className = "btn btn-primary"
-        type = "button"
-        style={{marginBottom:'5px'}}
-        onClick = {() => this.signUp()}>
-        Sign Up
-      </button></div>, document.getElementById('rat'))
+  signUp(){
+    const {email, password, name} = this.state;
+    this.setState({
+      isLoading: true
     });
-}
+    firebaseApp.auth().createUserWithEmailAndPassword(email, password).then(user=>{
+      if(user != null){
+        userRef.child(`${user.user.uid}`).set({name})
+      }
 
-showErrorMessage(){
-if(this.state.error.message){
-return(<div className="errorBox">{this.state.error.message}</div>)
-} else {
-  return <div></div>
-}
-}
+    })
+    .catch(error => {
+      this.setState({
+        error,
+        isLoading: false
+      });
+    });
+  }
+
+  showErrorMessage(){
+    if (this.state.error.message) {
+      return(
+        <div className="errorBox">
+          {this.state.error.message}
+        </div>
+      )
+    } else {
+      return <div></div>
+    }
+  }
   render(){
     return(
     <div className="root-signin">
@@ -74,14 +75,22 @@ return(<div className="errorBox">{this.state.error.message}</div>)
               placeholder = "Password"
               onChange = {event => this.setState({password : event.target.value})} />
               <br />
-              <div id="rat"><button
-                className = "btn btn-primary"
-                type = "button"
-                style={{marginBottom:'5px'}}
-                onClick = {() => this.signUp()}>
-                Sign Up
-              </button></div>
-                <div>{this.showErrorMessage()}</div>
+              <div id="rat">
+              {
+                this.state.isLoading ?
+                <img src={logo} alt="loader" /> 
+                :
+                <button
+                  className = "btn btn-primary"
+                  type = "button"
+                  style={{marginBottom:'5px'}}
+                  onClick = {() => this.signUp()}
+                >
+                  Sign Up
+                </button>
+              }
+              </div>
+              <div>{this.showErrorMessage()}</div>
         </div>
         <br />
         <div>
